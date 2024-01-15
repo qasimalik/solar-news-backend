@@ -10,7 +10,7 @@ import bodyParser from "body-parser";
 config();
 
 const app = express();
-app.use(express.json());
+
 const whitelist = "*";
 const corsOptions = {
   origin: whitelist,
