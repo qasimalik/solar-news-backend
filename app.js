@@ -11,20 +11,12 @@ config();
 
 const app = express();
 app.use(express.json());
-const whitelist = [
-  "http://localhost:3000",
-  "https://solar-news-frontend.vercel.app/",
-];
+const whitelist = "*";
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      console.log("origin", origin);
-      callback(null, true);
-    } else {
-      console.log("origin", origin);
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: whitelist,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  exposedHeaders: ["x-auth-token"],
 };
 
 app.use(cors(corsOptions));
