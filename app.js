@@ -27,7 +27,6 @@ const corsPolicy = (req, res, next) => {
 };
 
 app.use(corsPolicy);
-app.use(cors({origin: 'https://solar-news-frontend.vercel.app/', credentials: true}))
 
 app.use(bodyParser.json({limit: '35mb'}));
 
