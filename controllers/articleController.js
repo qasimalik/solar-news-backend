@@ -4,6 +4,7 @@ import article from '../models/article.js';
 export async function getAllArticles(req, res) {
   try {
     const articles = await article.find();
+    console.log(articles);
     res.json(articles);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
