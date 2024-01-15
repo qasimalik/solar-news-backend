@@ -10,24 +10,19 @@ config();
 const app = express();
 
 const corsPolicy = (req, res, next) => {
-  const allowedOrigins = [
-    "http://localhost:3000",
-    "https://solar-news-frontend.vercel.app/"
-  ];
+  const allowedOrigins = "*";
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
-    res.setHeader('Content-Security-Policy', "default-src 'none'; font-src <URL>");
   }
-  res.header("Access-Control-Allow-Methods", "GET, OPTIONS, DELETE, PUT, POST");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  return next();
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods","*");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+
 };
 
-app.use(corsPolicy);
+app.use(corsPolicy)
 
 app.use(bodyParser.json({limit: '35mb'}));
 
@@ -39,6 +34,9 @@ app.use(
   }),
 );
 
+app.use('/', (req, res) => {
+  res.send('Welcome to the backend of the website');
+});
 app.use('/admin', adminRoutes);
 app.use('/articles', articleRoutes);
 app.use('/feedbacks', feedbackRoutes);
