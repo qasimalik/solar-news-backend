@@ -17,6 +17,7 @@ const corsPolicy = (req, res, next) => {
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader('Content-Security-Policy', "default-src 'none'; font-src <URL>");
   }
   res.header("Access-Control-Allow-Methods", "GET, OPTIONS, DELETE, PUT, POST");
   res.header(
