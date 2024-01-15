@@ -34,12 +34,12 @@ app.use(
   }),
 );
 
-app.use('/', (req, res) => {
-  res.send('Welcome to the backend of the website');
-});
 app.use('/admin', adminRoutes);
 app.use('/articles', articleRoutes);
 app.use('/feedbacks', feedbackRoutes);
 app.use('/videos', videoRoutes);
+app.use('/', (req, res) => {
+  res.send('Welcome to the backend of the website');
+});
 
 export default app;
