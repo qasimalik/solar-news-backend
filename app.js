@@ -1,6 +1,5 @@
 import express from 'express';
 import{ config } from 'dotenv';
-import morgan from 'morgan';
 import cors from 'cors';
 import adminRoutes from './routes/adminRoutes/admin.js';
 import articleRoutes from './routes/articles.js';
@@ -10,7 +9,25 @@ import bodyParser from 'body-parser';
 config();
 const app = express();
 
-app.use(cors({origin: 'http://localhost:3000', credentials: true}))
+const corsPolicy = (req, res, next) => {
+  const allowedOrigins = [
+    "http://localhost:3000",
+    "https://solar-news-frontend.vercel.app/"
+  ];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+  res.header("Access-Control-Allow-Methods", "GET, OPTIONS, DELETE, PUT, POST");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  return next();
+};
+
+app.use(corsPolicy);
+app.use(cors({origin: 'https://solar-news-frontend.vercel.app/', credentials: true}))
 
 app.use(bodyParser.json({limit: '35mb'}));
 
